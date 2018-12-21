@@ -71,7 +71,9 @@ end
 
 def save_students
   # open the file for writing
-  file = File.open("students.csv", "w")
+  puts "Enter desired filename"
+  save_filename = STDIN.gets.chomp
+  file = File.open("#{save_filename}.csv", "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -81,8 +83,10 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+def load_students #removed >>> (filename = "students.csv")
+  puts "Enter filename to load"
+  load_filename = STDIN.gets.chomp
+  file = File.open("#{load_filename}.csv", "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
